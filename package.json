@@ -1,0 +1,6 @@
+{
+  "name": "@gar/mcbe-tools",
+  "version": "1.0.0",
+  "description": "MCBE Tools",
+  "type": "module"
+}

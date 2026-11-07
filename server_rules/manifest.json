@@ -1,0 +1,27 @@
+{
+   "format_version": 2,
+   "header": {
+     "name": "GeorgeCo Server Rules",
+     "description":"Prompts new users with server rules",
+     "uuid":"f9b39ee6-306a-4240-9191-4de7cedb86a0",
+     "version": "1.0.0",
+     "min_engine_version": [1, 26, 61]
+   },
+   "modules":[{
+      "description": "Main script",
+      "uuid": "01fe6d3b-0eb2-4a30-9d65-fdbc57f67d04",
+      "language":"javascript",
+      "type":"script",
+      "version": "1.0.0",
+      "entry":"scripts/main.js"
+   }],
+   "dependencies":[
+      {
+         "module_name":"@minecraft/server",
+         "version":"2.11.0"
+      }, {
+         "module_name":"@minecraft/server-ui",
+         "version":"2.3.0"
+      }
+   ]
+}

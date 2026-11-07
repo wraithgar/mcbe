@@ -1,0 +1,15 @@
+
+world.beforeEvents.chatSend.subscribe((event) => {
+    const msg = String(event.message || "").trim().toLowerCase()
+    if (msg !== "!mailbox") {
+       return
+    }
+    event.cancel = true
+    system.run(() => {
+        // actual stuff here
+    })
+})
+
+ActionFormData
+
+form.show(player)
