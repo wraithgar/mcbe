@@ -2,10 +2,10 @@ import {
   EntityComponentTypes,
   EquipmentSlot,
   ItemComponentTypes,
-  world,
+  world
 } from '@minecraft/server'
 
-import { COLORS, EQUIPMENT_SLOTS } from './lib/constants.js'
+import { COLORS } from './lib/constants.js'
 import { run, runInterval, durabilityColor } from './lib/util.js'
 
 world.afterEvents.blockContainerOpened.subscribe(({ block }) => {
@@ -27,7 +27,7 @@ world.afterEvents.entityContainerOpened.subscribe(({ entity }) => {
 world.afterEvents.playerInventoryItemChange.subscribe(({ player, slot }) => {
   run(() => updateContainerSlot(player, slot))
 }, {
-  ignoreQuantityChange: true,
+  ignoreQuantityChange: true
 })
 
 world.afterEvents.playerBreakBlock.subscribe(({ player }) => {
@@ -54,43 +54,41 @@ world.afterEvents.entityHurt.subscribe(({ hurtEntity: player }) => {
 // Runs every 2 seconds since you have to open your inventory to even look at equipped elytra, no need for anything more frequent
 runInterval(() => updateEquippedChests(), 40)
 
-function updateEquippedChests() {
+function updateEquippedChests () {
   for (const player of world.getAllPlayers()) {
     updateSlot(getEquippable(player)?.getEquipmentSlot(EquipmentSlot.Chest))
   }
 }
 
-function updateEquipment(player) {
+function updateEquipment (player) {
   const equippable = getEquippable(player)
   if (equippable) {
-    for (const slotName of EQUIPMENT_SLOTS) {
-      try {
-        updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Head))
-        updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Chest))
-        updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Legs))
-        updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Feet))
-        updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Offhand))
-      } catch {}
-    }
+    try {
+      updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Head))
+      updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Chest))
+      updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Legs))
+      updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Feet))
+      updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Offhand))
+    } catch {}
   }
 }
 
-function updateHeldItem(entity) {
+function updateHeldItem (entity) {
   updateContainerSlot(entity, entity.selectedSlotIndex)
 }
 
-function updateContainerSlot(entity, index) {
+function updateContainerSlot (entity, index) {
   if (index < 0) {
     return
   }
   const container = getInventoryContainer(entity)
-  if (index >= container.size) {
+  if (container?.size && index >= container.size) {
     return
   }
   updateSlot(container.getSlot(index))
 }
 
-function updateSlot(slot) {
+function updateSlot (slot) {
   if (!slot?.hasItem()) {
     return
   }
@@ -117,21 +115,23 @@ function updateSlot(slot) {
   slot.setLore(lore)
 }
 
-function getInventoryContainer(entity) {
+function getInventoryContainer (entity) {
   try {
     return entity.getComponent(EntityComponentTypes.Inventory)?.container
   } catch {}
 }
 
-function getEquippable(entity) {
+function getEquippable (entity) {
   try {
     return entity.getComponent(EntityComponentTypes.Equippable)
   } catch {}
 }
 
-function updateAllInventory(entity) {
+function updateAllInventory (entity) {
   const container = getInventoryContainer(entity)
-  for (let i = 0; i < container.size; i++) {
-    updateSlot(container.getSlot(i))
+  if (container?.size) {
+    for (let i = 0; i < container.size; i++) {
+      updateSlot(container.getSlot(i))
+    }
   }
 }

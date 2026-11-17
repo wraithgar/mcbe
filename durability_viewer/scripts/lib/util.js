@@ -1,27 +1,27 @@
 import { system } from '@minecraft/server'
 import { COLORS } from './constants.js'
 
-export function run(fn) {
+export function run (fn) {
   system.run(() => {
     try {
       fn()
-    } catch(e) {
+    } catch (e) {
       console.warn(`Error: ${e}`)
     }
   })
 }
 
-export function runInterval(fn, interval) {
+export function runInterval (fn, interval) {
   system.runInterval(() => {
     try {
       fn()
-    } catch(e) {
+    } catch (e) {
       console.warn(`Error: ${e}`)
     }
   }, interval)
 }
 
-export function durabilityColor(current, max) {
+export function durabilityColor (current, max) {
   const percentage = current / max
   if (percentage <= 0.2) {
     return COLORS.red

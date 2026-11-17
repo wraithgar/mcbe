@@ -32,14 +32,5 @@ export const COLORS = Object.freeze({
   materialLapis: '§t',
   materialAmethyst: '§u',
   materialResin: '§v',
-  partyBlue: '§w',
+  partyBlue: '§w'
 })
-
-export const EQUIPMENT_SLOTS = Object.freeze([
-  'Head',
-  'Chest',
-  'Legs',
-  'Feet',
-  'Offhand',
-]);
-
