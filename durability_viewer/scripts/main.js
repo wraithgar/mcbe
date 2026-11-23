@@ -52,13 +52,14 @@ world.afterEvents.entityHurt.subscribe(({ hurtEntity: player }) => {
 
 // Elytra, sigh.
 // Runs every 2 seconds since you have to open your inventory to even look at equipped elytra, no need for anything more frequent
-runInterval(() => updateEquippedChests(), 40)
-
-function updateEquippedChests () {
+runInterval(run(() => {
   for (const player of world.getAllPlayers()) {
-    updateSlot(getEquippable(player)?.getEquipmentSlot(EquipmentSlot.Chest))
+    const equippable = getEquippable(player)
+    if (equippable) {
+      updateSlot(equippable.getEquipmentSlot(EquipmentSlot.Chest))
+    }
   }
-}
+}), 40)
 
 function updateEquipment (player) {
   const equippable = getEquippable(player)
