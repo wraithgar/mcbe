@@ -4,7 +4,7 @@
      "name": "GeorgeCo Durability Viewer",
      "description":"Adds item durability to item summary",
      "uuid":"07a47fe2-5d2b-4873-9f9d-6660fc2091ed",
-     "version": "1.0.5",
+     "version": "1.0.6",
      "min_engine_version": [1, 26, 61]
    },
    "modules":[{
@@ -12,7 +12,7 @@
       "uuid": "7aed1a9f-ad1c-4312-85c2-5bc3ecf7ae82",
       "language":"javascript",
       "type":"script",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "entry":"scripts/main.js"
    }],
    "dependencies":[
